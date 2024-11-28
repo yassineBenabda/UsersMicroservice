@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.yassine.users.entities.Role;
+import com.yassine.users.entities.User;
 import com.yassine.users.service.UserService;
+
+import jakarta.annotation.PostConstruct;
 
 @SpringBootApplication
 public class UsersMicroserviceApplication {
@@ -15,8 +19,8 @@ public class UsersMicroserviceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(UsersMicroserviceApplication.class, args);
 	}
-	
-	/*@PostConstruct
+	/*
+	@PostConstruct
 	void init_users() {
 		 userService.addRole(new Role(null,"ADMIN"));
 		 userService.addRole(new Role(null,"USER"));
@@ -30,7 +34,7 @@ public class UsersMicroserviceApplication {
 		 userService.addRoleToUser("admin", "USER");
 		 userService.addRoleToUser("nadhem", "USER");
 		 userService.addRoleToUser("yassine", "USER");
-	 }
-	 */
+	 }*/
+	 
 	
 }

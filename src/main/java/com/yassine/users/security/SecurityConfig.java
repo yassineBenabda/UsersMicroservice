@@ -10,20 +10,29 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig {
-	
-	@Autowired
-	AuthenticationManager authMgr;
-	
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-	.csrf(csrf -> csrf.disable())
-	.authorizeHttpRequests(requests->requests.requestMatchers("/login").permitAll().anyRequest().authenticated() ) 
-	.addFilterBefore(new JWTAuthenticationFilter(authMgr), UsernamePasswordAuthenticationFilter.class);
-	return http.build();
-	}
-	
+@Configuration 
+@EnableWebSecurity 
+public class SecurityConfig { 
+@Autowired 
+AuthenticationManager authMgr; 
+	@Bean 
+	 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {  
+		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) 
+	       
+	    .csrf(csrf -> csrf.disable()) 
+	                   
+	    .authorizeHttpRequests((requests)->requests 
+	    .requestMatchers("/login").permitAll() 
+	    .requestMatchers("/all").hasAuthority("ADMIN") 
+	    .anyRequest().authenticated() ) 
+	    	                         
+	    .addFilterBefore(new JWTAuthenticationFilter (authMgr),
+	    		UsernamePasswordAuthenticationFilter.class)
+	    
+	    .addFilterBefore(new JWTAuthorizationFilter(),
+	    		UsernamePasswordAuthenticationFilter.class);
+	                             
+	 return http.build(); 
+	 } 
+	  
 }
