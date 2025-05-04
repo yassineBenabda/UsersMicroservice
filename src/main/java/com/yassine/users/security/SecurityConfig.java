@@ -43,7 +43,7 @@ AuthenticationManager authMgr;
 	            })) 
 	                   
 	    .authorizeHttpRequests((requests)->requests 
-	    .requestMatchers("/login").permitAll() 
+	    .requestMatchers("/login","/register/**").permitAll() 
 	    .requestMatchers("/all").hasAuthority("ADMIN") 
 	    .anyRequest().authenticated() ) 
 	    	                         
